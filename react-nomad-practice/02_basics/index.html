@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <div id="root"></div>
-    </body>
-    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script> <!-- import React -->
-    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script> <!-- import React-dom -->
-    <script>
-        const root = document.getElementById("root");
-        const span = React.createElement("span", { id:"sexy-span", style: { color: "red" } }, "Hello I am a span"); // (HTML태그, 속성, 내용)
-        ReactDOM.render(span, root); // span을 root안에 render(보여줘라)
-    </script>
-</html> 
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script> <!-- import React -->
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script> <!-- import React-dom -->
+<script>
+    const root = document.getElementById("root");
+    const h3 = React.createElement("h3", {
+        onMouseEnter: () => console.log("mouse enter"), // on붙은거 == eventlistner
+    }, "Hello I am a span"); // (HTML태그, 속성, 내용)
+    const btn = React.createElement("button", {
+        onClick: () => console.log("im clicked"),
+    }, "Click me");
+    const container = React.createElement("div", null, [h3, btn]);
+    ReactDOM.render(container, root); // span을 root안에 render(보여줘라)
+</script>
+
+</html>
 
 <!--
 vanilla js에서는 html을 먼저 만들고, 그걸 js로 가져와서 html을 수정
@@ -18,4 +26,4 @@ react js에서는 모든 것이 js로 시작해서 html이 됨
 -> react js가 element 생성 
 -> react js가 element를 업데이트할 것
 -> react js는 유저에게 보여질 내용을 컨트롤할 수 있음
- -->
+-->
