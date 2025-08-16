@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 <html>
-
-<body>
+  <body>
     <div id="root"></div>
-</body>
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script> <!-- import React (엔진)-->
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script> <!-- import React-dom (보여줘)-->
-<script>
+  </body>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <!-- import React (엔진)-->
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <!-- import React-dom (보여줘)-->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- import Babel (JSX 해석기) -->
+  <script type="text/babel">
+    // JSX 코드는 반드시 type="text/babel"
     const root = document.getElementById("root");
+    const Title = (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        Hello I'm a title
+      </h3>
+    ); // JSX 사용 시 HTML과 유사한 문법 사용하여 간단함
+    /*
     const h3 = React.createElement("h3", {
         onMouseEnter: () => console.log("mouse enter"), // on붙은거 == eventlistner
     }, "Hello I am a span"); // (HTML태그, 속성, 내용)
-    const btn = React.createElement("button", {
+    */
+    const Button = (
+      <button
+        style={{ backgroundColor: "tomato" }} // 첫 번째 중괄호는 JSX 문법에서 JavaScript 표현식을 쓰겠다는 의미. 두 번째 중괄호는 스타일 객체를 작성하는 것
+        onClick={() => console.log("im clicked")}
+      >
+        Click me
+      </button>
+    );
+    const btn = React.createElement(
+      "button",
+      {
         onClick: () => console.log("im clicked"),
-    }, "Click me");
-    const container = React.createElement("div", null, [h3, btn]);
+      },
+      "Click me"
+    );
+    const container = React.createElement("div", null, [Title, Button]);
     ReactDOM.render(container, root); // span을 root안에 render(보여줘라)
-</script>
-
+  </script>
 </html>
 
 <!--
@@ -26,4 +48,7 @@ react js에서는 모든 것이 js로 시작해서 html이 됨
 -> react js가 element 생성 
 -> react js가 element를 업데이트할 것
 -> react js는 유저에게 보여질 내용을 컨트롤할 수 있음
+
+** 브라우저가 JSX를 이해하지 못하므로 
+바벨을 통해 JSX 형태의 코드를 기존의 create Element형식으로 변환해야함
 -->
