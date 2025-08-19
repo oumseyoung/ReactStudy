@@ -46,27 +46,32 @@
       "Click me"
     );
     */
+    /*
     let counter = 0;
     function countUp() {
       counter = counter + 1;
       render(); //rerender ther Container
     }
     function render() {
-      ReactDOM.render(<Container />, root); //rerender ther Container
+      //ReactDOM.render(<Container />, root); //rerender ther Container
     }
-    const Container = () => (
-      <div>
-        <h3>Total clicks: {counter}</h3>
-        <button
+    */
+    function App() {
+      const [counter, modifier] = React.useState(0);
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button
           // style={{ backgroundColor: "tomato" }} // 첫 번째 중괄호는 JSX 문법에서 JavaScript 표현식을 쓰겠다는 의미. 두 번째 중괄호는 스타일 객체를 작성하는 것
-          onClick={countUp} // eventListner
-        >
-          Click me
-        </button>
-      </div>
-    );
+          // onClick={countUp} // eventListner
+          >
+            Click me
+          </button>
+        </div>
+      );
+    }
     // const container = React.createElement("div", null, [Title, Button]);
-    ReactDOM.render(<Container />, root); // Container을 root안에 render(보여줘라)
+    ReactDOM.render(<App />, root); // Container을 root안에 render(보여줘라)
   </script>
 </html>
 
