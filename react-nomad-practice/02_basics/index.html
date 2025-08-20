@@ -59,7 +59,8 @@
     function App() {
       const [counter, setCounter] = React.useState(0); // destructuring assignment(구조 분해 할당)
       const onClick = () => {
-        setCounter(counter + 1);
+        // setCounter(counter + 1);
+        setCounter((current) => current + 1); // more safe way (현재 state를 기반으로 계산을 하고 싶다면 함수를 이용하라)
       };
       return (
         <div>
@@ -129,4 +130,28 @@ counter의 타입은 number(원시값 타입)
 setCounter함수를 실행하면 내부에서 받은 인자값으로 useState가 리턴할 값을 업데이트하고 컴포넌트 함수를 재실행시켜서 재렌더링
 컴포넌트 함수가 재실행 되면서 새로운 상수를 선언하는 것이기에 const를 사용해도 문제가 없음
 값을 변경하는 동작이 없기 때문에 문제가 없는 것
+
+** state를 세팅하는 2가지 방법
+1) 직접 할당: setState(state +1)
+2)함수를 할당: setState(state => state +1) (함수의 첫번째 인자는 현재 state)
+
+현재 state랑 관련이 없는 값을 새로운 state로 하고싶은 경우에는 (1),
+현재 state에 조금의 변화를 주어서 새로운 state를 주고 싶은 경우에는 (2)
+
+ex) 
+1. 값으로 여러번
+function onClick() {
+setCounter(counter + 1);
+setCounter(counter + 1);
+}
+
+2. 함수로 여러번
+function onClick() {
+setCounter(current => current+ 1);
+setCounter(current => current+ 1);
+}
+
+1번으로 돌렸을 경우에는 setCounter를 몇번을 호출해도 한 번만 실행됨(counter가 1만 증가)
+2번으로 돌렸을 경우에는 setCounter가 호출된 만큼 counter가 증가함
+
 -->
