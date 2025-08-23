@@ -7,52 +7,59 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    const root = document.getElementById("root");
-    function App() {
+    function MinutesToHours() {
       const [amount, setAmout] = React.useState(0); // default값: 0
-      const [flipped, setFlipped] = React.useState(false);
+      const [inverted, setInverted] = React.useState(false);
       const onChange = (event) => {
         setAmout(event.target.value);
       };
       const reset = () => setAmout(0);
-      const onFlip = () => {
+      const onInvert = () => {
         reset();
-        setFlipped((current) => !current);
+        setInverted((current) => !current);
       };
 
       return (
         <div>
-          <h1>Super Converter</h1>
           <div>
             <label htmlFor="minutes">Minutes</label>
             {/* input의 label의 for 속성은 react에서는 htmlFor로 표시 */}
             <input
-              value={flipped ? amount * 60 : amount} // 삼항연산자
+              value={inverted ? amount * 60 : amount} // 삼항연산자
               id="minutes"
               placeholder="Minutes"
               type="number"
               onChange={onChange}
-              disabled={flipped} // = flipped === true
+              disabled={inverted} // = inverted === true
             />
           </div>
 
           <div>
             <label htmlFor="hours">Hours</label>
             <input
-              value={flipped ? amount : Math.round(amount / 60)} // 삼항연산자
+              value={inverted ? amount : Math.round(amount / 60)} // 삼항연산자
               id="hours"
               placeholder="Hours"
               type="number"
               onChange={onChange}
-              disabled={!flipped} // = flipped === false
+              disabled={!inverted} // = inverted === false
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flipped</button>
+          <button onClick={onInvert}>Inverted</button>
         </div>
       );
     }
-    // const root = document.getElementById("root");
+
+    function App() {
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <MinutesToHours />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
   </script>
 </html>
@@ -69,16 +76,16 @@ react의 development모드:
 react의 production 모드:
 경고를 해주는 코드가 줄어들면서 파일이 더 가벼워짐 -> 배포하기 좋아짐
 
-** flip
-const onFlip = () => setFlipped(!flipped);
--> flipped가 true라면 부정명제인 !flipped는 false
+** inverted
+const onInvert = () => setInverted(!inverted);
+-> inverted가 true라면 부정명제인 !inverted는 false
 -> false라면 true
 
 state값으로 input을 enabled할지 disabled 할지를 결정할 수 있음
 
 디폴트 값이 false 라고 정했으므로 Hours는 disabled 되어야함
-그래서 disabled={flipped === false}를 써서
-flipped가 false라면, disabled는 true가 되도록
-Minuets에는 반대로 disabled={flipped === true}
-+) Hours는 disabled={!flipped}, Minuets에는 disabled={flipped} 라고 쓰면 더 짧음
+그래서 disabled={inverted === false}를 써서
+inverted가 false라면, disabled는 true가 되도록
+Minuets에는 반대로 disabled={inverted === true}
++) Hours는 disabled={!inverted}, Minuets에는 disabled={inverted} 라고 쓰면 더 짧음
 -->
