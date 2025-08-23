@@ -51,7 +51,47 @@
       );
     }
     function KmToMiles() {
-      return <h3>KM 2 M</h3>;
+      const [amount, setAmout] = React.useState(0); // default값: 0
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmout(event.target.value);
+      };
+      const reset = () => setAmout(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="km">Km</label>
+            {/* input의 label의 for 속성은 react에서는 htmlFor로 표시 */}
+            <input
+              value={inverted ? amount * 1.609 : amount} // 삼항연산자
+              id="km"
+              placeholder="Km"
+              type="number"
+              onChange={onChange}
+              disabled={inverted} // = inverted === true
+            />
+          </div>
+
+          <div>
+            <label htmlFor="miles">Miles</label>
+            <input
+              value={inverted ? amount : amount / 1.609} // 삼항연산자
+              id="miles"
+              placeholder="Miles"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted} // = inverted === false
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>Inverted</button>
+        </div>
+      );
     }
 
     function App() {
