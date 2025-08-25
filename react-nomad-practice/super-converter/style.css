@@ -1,38 +1,138 @@
+:root {
+  --bg: #f2f5f9;
+  --light: #ffffff;
+  --dark-shadow: #dce3ea;
+  --accent: #3c7cff;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background-color: var(--bg);
   padding: 40px;
   display: flex;
   justify-content: center;
 }
 
+/* 카드 스타일 */
 .container {
-  background: white;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  background: var(--light);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  width: 420px;
 }
 
+/* 제목 */
 h1 {
   text-align: center;
+  color: #222;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 24px;
 }
 
+/* 입력 요소 공통 */
 select,
 input,
 button {
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 16px;
+  padding: 14px 16px;
   font-size: 16px;
-  border-radius: 6px;
+  border: none;
+  border-radius: 12px;
   box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
+/* 입력 필드 */
+input,
+select {
+  background: var(--light);
+  box-shadow: inset 2px 2px 6px var(--dark-shadow),
+    inset -2px -2px 6px var(--light);
+}
+
+/* 비활성화 입력 */
+input:disabled {
+  background: #e9edf2;
+  cursor: not-allowed;
+}
+
+input::placeholder {
+  color: #777;
+}
+input:disabled::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* SELECT 화살표 커스텀 */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23777' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+}
+
+/* 버튼 */
 button {
-  cursor: pointer;
+  background: var(--light);
+  color: #333;
+  font-weight: 500;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05),
+    -2px -2px 6px rgba(255, 255, 255, 0.6);
 }
 
+/* 버튼 hover */
+button:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.01);
+}
+
+/* 버튼 active */
+button:active {
+  transform: scale(0.97);
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.05),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.6);
+}
+
+/* 버튼 간격 */
 button + button {
-  margin-top: 10px;
+  margin-top: 12px;
+}
+
+/* 라벨 */
+label {
+  margin-top: 16px;
+  display: block;
+  font-weight: 500;
+  color: #333;
+}
+
+/* 안내문구 */
+p {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+/* 구분선 */
+hr {
+  margin: 24px 0;
+  border: none;
+  border-top: 1px solid #d5dbe4;
+}
+
+/* 포커스 시 */
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
 }
