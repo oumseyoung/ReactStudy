@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn(props) {
+      //props is the first and the only argument
+      // props은 객체 -> 구조분해 할당 사용하면 매우 유용
+      //shortcut: {text, big} instead of props
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: props.big ? 18 : 16, // props, 삼항연산자를 이용한 style 조건부 지정
+          }}
+        >
+          {props.text}
+        </button>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" big={true} /> {/*함수형 컴포넌트*/}
+          <Btn text="Continue" big={false} />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
