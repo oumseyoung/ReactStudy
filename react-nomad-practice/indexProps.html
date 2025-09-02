@@ -7,31 +7,42 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn(props) {
-      //props is the first and the only argument
+    function Btn({ text, changeValue }) {
+      // 자식
+      // props is the first and the only argument
       // props은 객체 -> 구조분해 할당 사용하면 매우 유용
-      //shortcut: {text, big} instead of props
+      // shortcut: {text, big} instead of props
+      // props라고 쓰면 props.big 이런식으로 써야됨
+      console.log(text, "was rendered");
       return (
         <button
+          onClick={changeValue}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: props.big ? 18 : 16, // props, 삼항연산자를 이용한 style 조건부 지정
+            // fontSize: props.big ? 18 : 16, // props, 삼항연산자를 이용한 style 조건부 지정
           }}
         >
-          {props.text}
+          {text}
         </button>
       );
     }
 
+    const MemorizedBtn = React.memo(Btn);
+
     function App() {
+      // 부모
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text="Save Changes" big={true} /> {/*함수형 컴포넌트*/}
-          <Btn text="Continue" big={false} />
+          {/* <Btn text="Save Changes" big={true} /> 함수형 컴포넌트 */}
+          {/* <Btn text="Continue" big={false} /> */}
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }
@@ -39,3 +50,24 @@
     ReactDOM.render(<App />, root);
   </script>
 </html>
+
+<!-- 
+
+<Btn text={value} onClick={changeValue} />에 있는 onClick은
+prop 이름일 뿐. Btn 안으로 전달되는 것. 이벤트리스너 아님
+HTML 요서 안에 onClick을 넣으면 이벤트리스너임
+
+<Btn text={value} onClick={changeValue} /> 안에 style={{color:"green"}}
+이런식으로 적어도 초록색으로 안됨. 
+무조건 function Btn() 안에 prop을 가져와서 적용시켜야함
+
+memo: react에게 이 컴포넌트가 다시 그려지는 것을 원치 않는다고 말하기(props가 변경되지 않는 한)
+React.memo는 고차 컴포넌트(Higher Order Component)
+컴포넌트가 동일한 props로 동일한 결과를 렌더링해낸다면
+React.memo를 호출하고 결과를 메모이징(Memoizing)하도록 래핑하여 경우에 따라 성능 향상
+즉, React는 컴포넌트를 렌더링하지 않고 마지막으로 렌더링된 결과를 재사용합니다.
+
+memo를 사용하지않고 부모 중 한 state라도 변경이 있을 때 모든 자식이 re-render되면 
+어플리케이션이 느려지는 원인이 될 수 있음
+
+-->
